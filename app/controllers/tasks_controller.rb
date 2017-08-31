@@ -3,12 +3,11 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:destroy]
 
   def index
-  end
-
-  def show
+    @tasks = Task.all
   end
 
   def new
+    @task = Task.new
   end
 
   def create
@@ -24,15 +23,30 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find(params[:id])
+  end
+
+  def show
+     @task = Task.find(params[:id])
   end
 
   def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      flash[:success] = 'Tasklist は正常に更新されました'
+      redirect_to @task
+    else
+      flash.now[:danger] = 'Tasklist は更新されませんでした'
+      render :edit
+    end
   end
 
   def destroy
+    @task = Task.find(params[:id])
     @task.destroy
     flash[:success] = 'メッセージを削除しました。'
-    redirect_back(fallback_location: root_path)
+    redirect_to root_url
   end
 
   private

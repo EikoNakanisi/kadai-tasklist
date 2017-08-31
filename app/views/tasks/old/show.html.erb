@@ -17,5 +17,5 @@
 </table>
 
 
-<%= link_to 'このタスクを編集する', edit_task_path(@task), class: 'btn btn-default' %>
+<%= link_to 'このタスクを編集する', edit_task_path(task), class: 'btn btn-default' %>
 <%= link_to 'このタスクを削除する', @task, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
