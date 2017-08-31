@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy, :edit, :show, :update]
 
   def index
     @tasks = Task.all
@@ -34,11 +34,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      flash[:success] = 'Tasklist は正常に更新されました'
-      redirect_to @task
+      flash[:success] = 'Tasklistを投稿しました。'
+      redirect_to root_url
     else
-      flash.now[:danger] = 'Tasklist は更新されませんでした'
-      render :edit
+      flash[:danger] = 'Tasklistの投稿に失敗しました。'
+      redirect_back(fallback_location: root_path)
     end
   end
 
